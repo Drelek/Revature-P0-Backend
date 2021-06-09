@@ -1,0 +1,26 @@
+{
+  "name": "pizza-ordering",
+  "version": "1.0.0",
+  "description": "An API for placing and keeping track of pizza orders.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo test",
+    "start": "node src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RevatureRobert/RevatureTrainingProject0-JaredBurkamper.git"
+  },
+  "author": "Jared Burkamper",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/RevatureRobert/RevatureTrainingProject0-JaredBurkamper/issues"
+  },
+  "homepage": "https://github.com/RevatureRobert/RevatureTrainingProject0-JaredBurkamper#readme",
+  "dependencies": {
+    "dynamodb": "^1.3.0",
+    "express": "^4.17.1",
+    "jest": "^27.0.4"
+  }
+}
