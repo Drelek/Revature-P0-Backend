@@ -28,11 +28,10 @@ export function getTagged (tag) {
 
 /**
  * Adds an item to the list of purchasable items.
- * User must be logged in and administrator.
  * @param item the item to add
  * @returns a response object
  */
-export function add (item) {
+export function add (apiKey, item) {
 
 }
 
@@ -42,7 +41,7 @@ export function add (item) {
  * @param itemId the ID of the item to remove
  * @returns a response object
  */
-export function remove (itemId) {
+export function remove (apiKey, itemId) {
 
 }
 

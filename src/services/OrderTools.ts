@@ -1,12 +1,11 @@
 // File contains all of the functions pertaining to orders.
 
 /**
- * Places an order for the current user.
- * User must be logged in.
+ * Places an order for a given user.
  * @param order the order to be placed
  * @returns a response object
  */
-export function place (order) {
+export function place (apiKey, order) {
 
 }
 
@@ -15,15 +14,15 @@ export function place (order) {
  * @param orderId the ID of the order to be cancelled
  * @returns a response object
  */
-export function cancel (orderId) {
+export function cancel (apiKey, orderId) {
 
 }
 
 /**
- * Returns the entire order history of the current user.
+ * Returns the entire order history of a given user.
  * @returns an array of orders
  */
-export function getHistory () {
+export function getHistory (apiKey) {
 
 }
 

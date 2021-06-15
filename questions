@@ -1,0 +1,4 @@
+1. Does ts-node run standard javascript?
+2. Should we use transpiled typescript, or can we use ts-node?
+3. Is there a version of Express that uses ESModule, or will I have to convert that myself?
+4. Can I use regular SQL on DynamoDB?
