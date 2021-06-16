@@ -76,7 +76,7 @@ const newUser: types.User = {
 }
 
 async function tester() {
-    const userInfo = await accTools.get("asdf");
+    const userInfo = await accTools.remove("barf");
     console.log(userInfo);
 }
 

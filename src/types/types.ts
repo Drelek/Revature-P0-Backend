@@ -43,7 +43,7 @@ export class Response {
     data?: object;
 }
 
-export function createUserSchema(user: User, apiKey: string): PutItemInput {
+export function createUserSchema(user: User, apiKey: string, admin: boolean = false): PutItemInput {
     return {
         Item: {
             "firstName": {
@@ -56,12 +56,13 @@ export function createUserSchema(user: User, apiKey: string): PutItemInput {
                 S: user.email
             },
             "admin": {
-                BOOL: false
+                BOOL: admin
             },
             "apiKey": {
                 S: apiKey
             }
         },
-        TableName: "Users"
+        TableName: "Users",
+        ReturnValues: "ALL_NEW"
     }
 }
