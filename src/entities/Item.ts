@@ -39,7 +39,7 @@ class Item implements IItem {
                     S: this.description
                 },
                 "price": {
-                    S: '' + this.price
+                    N: '' + this.price
                 },
                 "tags": {
                     SS: this.tags

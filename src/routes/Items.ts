@@ -77,7 +77,7 @@ export async function getTaggedItems(req: Request, res: Response) {
  * @returns 
  */
 export async function updateItem(req: Request, res: Response) {
-    if (!req.body.apiKey || !req.body.id || !req.body.item) {
+    if (!req.body.apiKey || req.body.id == undefined || !req.body.item) {
         return res.status(BAD_REQUEST).json({
             error: paramMissingError
         });
@@ -97,7 +97,7 @@ export async function updateItem(req: Request, res: Response) {
  * @returns 
  */
 export async function removeItem(req: Request, res: Response) {
-    if (!req.body.apiKey || !req.body.id) {
+    if (!req.body.apiKey || req.body.id == undefined) {
         return res.status(BAD_REQUEST).json({
             error: paramMissingError
         });

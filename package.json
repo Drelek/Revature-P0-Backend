@@ -4,7 +4,7 @@
   "description": "An API for placing and keeping track of pizza orders.",
   "author": "Jared Burkamper",
   "scripts": {
-    "build": "./node_modules/.bin/ts-node build.ts",
+    "build": "ts-node build.ts",
     "lint": "eslint . --ext .ts",
     "start": "node -r module-alias/register ./dist --env=production",
     "start:dev": "nodemon",

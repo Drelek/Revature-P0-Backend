@@ -125,10 +125,11 @@ class ItemDao implements IItemDao {
             const items = result.Items || [];
             this.cachedItems = [];
             for (let item of items) {
+                console.log(item)
                 this.cachedItems.push(new Item(
                     item.name.S || '',
                     item.description.S || '',
-                    Number(item.price.N) || 0,
+                    Number(item.price.N),
                     Number(item.id.N),
                     ...item.tags.SS || []
                 ));
@@ -161,7 +162,7 @@ class ItemDao implements IItemDao {
                 taggedItems.push(new Item(
                     item.name.S || '',
                     item.description.S || '',
-                    Number(item.price.N) || 0,
+                    Number(item.price.N || 0),
                     Number(item.id.N),
                     ...item.tags.SS || []
                 ));
