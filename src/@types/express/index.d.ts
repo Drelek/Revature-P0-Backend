@@ -1,5 +1,6 @@
 import User from "@entities/User";
 import Item from "@entities/Item";
+import Order from "@entities/Order";
 
 declare module 'express' {
     export interface Request  {
@@ -9,6 +10,7 @@ declare module 'express' {
             user?: User;
             item?: Item;
             id?: number;
+            order?: Order;
         };
     }
 }

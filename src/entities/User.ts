@@ -41,6 +41,9 @@ class User implements IUser {
                 },
                 "apiKey": {
                     S: apiKey
+                },
+                "orders": {
+                    L: []
                 }
             },
             TableName: "Users"

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { getUser, createUser, updateUser, removeUser, promoteUser,  } from './Users';
 import { createItem, getItem, getAllItems, getTaggedItems, updateItem, removeItem } from './Items';
+import { placeOrder } from './Orders';
 
 
 // User-route
@@ -22,8 +23,14 @@ itemRouter.put('/', updateItem);
 itemRouter.delete('/', removeItem);
 
 
+// Order-route
+const orderRouter = Router();
+orderRouter.post('/', placeOrder);
+
+
 // Export the base-router
 const baseRouter = Router();
 baseRouter.use('/user', userRouter);
 baseRouter.use('/item', itemRouter);
+baseRouter.use('/order', orderRouter);
 export default baseRouter;
