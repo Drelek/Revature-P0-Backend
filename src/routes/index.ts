@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getUser, createUser, updateUser, removeUser, promoteUser,  } from './Users';
 import { createItem, getItem, getAllItems, getTaggedItems, updateItem, removeItem } from './Items';
-import { placeOrder } from './Orders';
+import { placeOrder, getOrder, getAllOrders } from './Orders';
 
 
 // User-route
@@ -26,6 +26,8 @@ itemRouter.delete('/', removeItem);
 // Order-route
 const orderRouter = Router();
 orderRouter.post('/', placeOrder);
+orderRouter.get('/:apiKey', getAllOrders);
+orderRouter.get('/:apiKey/:receipt', getOrder);
 
 
 // Export the base-router

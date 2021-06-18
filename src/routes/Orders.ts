@@ -28,3 +28,30 @@ export async function placeOrder(req: Request, res: Response) {
     const response = await orderDao.place(req.body.apiKey, order);
     return res.status(OK).json(response);
 }
+
+
+/**
+ * Get info about an order.
+ * 
+ * @param req 
+ * @param res 
+ */
+export async function getOrder(req: Request, res: Response) {
+    const apiKey = req.params.apiKey;
+    const receipt = Number(req.params.receipt);
+    const response = await orderDao.get(apiKey, receipt);
+    return res.status(OK).json(response);
+}
+
+
+/**
+ * Get info about all of a user's orders.
+ * 
+ * @param req 
+ * @param res 
+ */
+export async function getAllOrders(req: Request, res: Response) {
+    const apiKey = req.params.apiKey;
+    const response = await orderDao.getAll(apiKey);
+    return res.status(OK).json(response);
+}

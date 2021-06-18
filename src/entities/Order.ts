@@ -1,4 +1,4 @@
-import { UpdateItemInput, DeleteItemInput, GetItemInput } from 'aws-sdk/clients/dynamodb';
+import { UpdateItemInput, DeleteItemInput } from 'aws-sdk/clients/dynamodb';
 
 export interface IOrder {
     receipt?: number;
@@ -53,6 +53,16 @@ class Order implements IOrder {
             TableName: "Users",
             UpdateExpression: "SET #O = list_append(#O, :o)",
             ReturnValues: "UPDATED_NEW"            
+        }
+    }
+
+    public static getSchema(apiKey: string) {
+        return {
+            TableName: "Users",
+            Key: {
+                "apiKey": apiKey
+            },
+            ProjectionExpression: "orders"
         }
     }
 

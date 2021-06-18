@@ -11,6 +11,7 @@ declare module 'express' {
             item?: Item;
             id?: number;
             order?: Order;
+            receipt?: number;
         };
     }
 }
