@@ -93,12 +93,15 @@ class Item implements IItem {
     public static getTaggedSchema(tag: string): ScanInput {
         return {
             TableName: "Items",
+            ExpressionAttributeNames: {
+                "#T": "tags"
+            },
             ExpressionAttributeValues: {
                 ":t": {
                     S: tag
                 }
             },
-            FilterExpression: ":t IN tags"
+            FilterExpression: "contains(#T, :t)"
         }
     }
 
