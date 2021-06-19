@@ -66,6 +66,23 @@ class Order implements IOrder {
         }
     }
 
+    public static cancelSchema(apiKey: string, orders: any[]) {
+        return {
+            ExpressionAttributeNames: {
+                "#O": "orders"
+            },
+            ExpressionAttributeValues: {
+                ":o": orders
+            },
+            Key: {
+                "apiKey": apiKey
+            },
+            TableName: "Users",
+            UpdateExpression: "SET #O = :o",
+            ReturnValues: "UPDATED_NEW"            
+        }
+    }
+
     public static createFromObject(obj: any): Order {
         return new Order(
             obj.items,

@@ -1,13 +1,13 @@
 export interface IResponse {
     success: boolean;
     message?: string;
-    data?: object;
+    data?: any;
 }
 
 class Response implements IResponse {
     success: boolean;
     message?: string;
-    data?: object;
+    data?: any;
 
     constructor(success: boolean, ...details: (string | object)[]) {
         this.success = success;

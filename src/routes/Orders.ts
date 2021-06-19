@@ -55,3 +55,20 @@ export async function getAllOrders(req: Request, res: Response) {
     const response = await orderDao.getAll(apiKey);
     return res.status(OK).json(response);
 }
+
+
+/**
+ * Cancels a user's order, given it was placed in the last ten minutes.
+ * 
+ * @param req 
+ * @param res 
+ */
+export async function cancelOrder(req: Request, res: Response) {
+    if (req.body.apiKey == undefined || req.body.receipt == undefined) {
+        return res.status(BAD_REQUEST).json({
+            error: paramMissingError
+        });
+    }
+    const response = await orderDao.cancel(req.body.apiKey, req.body.receipt);
+    return res.status(OK).json(response);
+}

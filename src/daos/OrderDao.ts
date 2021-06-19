@@ -17,9 +17,14 @@ const dynamoDoc = new AWS.DynamoDB.DocumentClient();
 const userDao = new UserDao();
 const itemDao = new ItemDao();
 
+// Ten minutes in MS
+const TEN_MINUTES = 1000 * 60 * 10;
+
 export interface IOrderDao {
     place: (apiKey: string, order: Order) => Promise<Response>;
     get: (apiKey: string, receipt: number) => Promise<Response>;
+    getAll: (apiKey: string) => Promise<Response>;
+    cancel: (apiKey: string, receipt: number) => Promise<Response>;
 }
 
 class OrderDao implements IOrderDao {
@@ -63,6 +68,7 @@ class OrderDao implements IOrderDao {
 
             return new Response(true, "Order has been placed as follows. Keep your receipt!", orderToPlace);
         } catch (err) {
+            console.log(err);
             return new Response(false, err);
         }
     }
@@ -82,7 +88,7 @@ class OrderDao implements IOrderDao {
             
             let order: Order | undefined = undefined;
             for (let item of orders.Item.orders) {
-                if (item.receipt === receipt) order = Order.createFromObject(item);
+                if (item.receipt == receipt) order = Order.createFromObject(item);
             }
             if (order == undefined) return new Response(false, "Invalid receipt.");
 
@@ -104,6 +110,38 @@ class OrderDao implements IOrderDao {
             const orders = await dynamoDoc.get(Order.getSchema(apiKey)).promise();
             if (orders.Item == undefined) return new Response(false, "User does not exist.");
             return new Response(true, orders.Item);
+        } catch (err) {
+            return new Response(false, err);
+        }
+    }
+
+
+    /**
+     * Cancels an order.
+     * Order must have been placed within the last 10 minutes.
+     * 
+     * @param apiKey the user who originally placed the order
+     * @param receipt the receipt number for the order
+     * @returns a response object containing the order object that was cancelled
+     */
+    public async cancel(apiKey: string, receipt: number): Promise<Response> {
+        try {
+            const time = Date.now();
+            
+            const order = await this.get(apiKey, receipt);
+            if (order.data == undefined) return order;
+
+            if (time - receipt > TEN_MINUTES) return new Response(false, "Order was placed more than ten minutes ago.");
+
+            const orders = await this.getAll(apiKey);
+            const newOrders = [];
+            for (let item of orders.data.orders) {
+                if (item.receipt != receipt) newOrders.push(item);
+            }
+
+            const result = await dynamoDoc.update(Order.cancelSchema(apiKey, newOrders)).promise();
+            if (result.Attributes == undefined) return new Response(false, "An unknown error has occured.");
+            return new Response(true, "Order has been cancelled successfully.", order.data);
         } catch (err) {
             return new Response(false, err);
         }
