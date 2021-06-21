@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { Router } from 'express';
 import { getUser, createUser, updateUser, removeUser, promoteUser,  } from './Users';
 import { createItem, getItem, getAllItems, getTaggedItems, updateItem, removeItem } from './Items';

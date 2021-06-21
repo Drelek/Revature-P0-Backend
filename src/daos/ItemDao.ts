@@ -26,7 +26,7 @@ class ItemDao implements IItemDao {
         this.cachedItems = [];
         dynamo.scan(Item.getAllSchema(), (err, data) => {
             const items = data.Items || []
-            for (let item of items) {
+            for (const item of items) {
                 this.cachedItems.push(new Item(
                     item.name.S || '',
                     item.description.S || '',
@@ -124,8 +124,7 @@ class ItemDao implements IItemDao {
             const result = await dynamo.scan(Item.getAllSchema()).promise();
             const items = result.Items || [];
             this.cachedItems = [];
-            for (let item of items) {
-                console.log(item)
+            for (const item of items) {
                 this.cachedItems.push(new Item(
                     item.name.S || '',
                     item.description.S || '',
@@ -158,7 +157,7 @@ class ItemDao implements IItemDao {
             const result = await dynamo.scan(Item.getTaggedSchema(tag)).promise();
             const items = result.Items || [];
             const taggedItems = [];
-            for (let item of items) {
+            for (const item of items) {
                 taggedItems.push(new Item(
                     item.name.S || '',
                     item.description.S || '',

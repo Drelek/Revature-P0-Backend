@@ -1,4 +1,4 @@
-import { UpdateItemInput, DeleteItemInput } from 'aws-sdk/clients/dynamodb';
+import { UpdateItemInput } from 'aws-sdk/clients/dynamodb';
 
 export interface IOrder {
     receipt?: number;
@@ -15,6 +15,7 @@ class Order implements IOrder {
     public total?: number;
     public timestamp?: string;
 
+    // eslint-disable-next-line max-len
     constructor(items: number[], receipt?: number, user?: string, total?: number, timestamp?: string) {
         if (receipt != undefined) this.receipt = receipt;
         if (user != undefined) this.user = user;
@@ -25,7 +26,7 @@ class Order implements IOrder {
 
     public getItemsString(): string[] {
         const newItems: string[] = [];
-        for (let item of this.items) newItems.push(String(item));
+        for (const item of this.items) newItems.push(String(item));
         return newItems;
     }
 
@@ -38,10 +39,10 @@ class Order implements IOrder {
                 ":o": {
                     L: [{
                         M: {
-                            "receipt": {N: `${this.receipt}`},
+                            "receipt": {N: `${this.receipt || 0}`},
                             "user": {S: this.user},
                             "items": {NS: this.getItemsString()},
-                            "total": {N: `${this.total}`},
+                            "total": {N: `${this.total || 0}`},
                             "timestamp": {S: this.timestamp}
                         }
                     }]                   

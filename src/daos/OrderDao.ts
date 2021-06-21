@@ -44,9 +44,10 @@ class OrderDao implements IOrderDao {
             const orderReceipt = Date.parse(orderTimestamp);
 
             let total = 0;
-            for (let item of order.items) {
+            for (const item of order.items) {
                 const itemResult = await itemDao.get(item);
-                if (itemResult.data == undefined) return new Response(false, "Invalid item ID: " + item);
+                if (itemResult.data == undefined) 
+                    return new Response(false, "Invalid item ID: " + item);
                 const itemInfo = Item.createFromObject(itemResult.data);
                 total += itemInfo.price;
             }
@@ -66,9 +67,12 @@ class OrderDao implements IOrderDao {
             const result = await dynamo.updateItem(orderToPlace.placeSchema(apiKey)).promise();
             if (!result.Attributes) return new Response(false, "An unknown error has occurred.");
 
-            return new Response(true, "Order has been placed as follows. Keep your receipt!", orderToPlace);
+            return new Response(
+                true, 
+                "Order has been placed as follows. Keep your receipt!", 
+                orderToPlace
+            );
         } catch (err) {
-            console.log(err);
             return new Response(false, err);
         }
     }
@@ -87,7 +91,7 @@ class OrderDao implements IOrderDao {
             if (orders.Item == undefined) return new Response(false, "User does not exist.");
             
             let order: Order | undefined = undefined;
-            for (let item of orders.Item.orders) {
+            for (const item of orders.Item.orders) {
                 if (item.receipt == receipt) order = Order.createFromObject(item);
             }
             if (order == undefined) return new Response(false, "Invalid receipt.");
@@ -131,16 +135,18 @@ class OrderDao implements IOrderDao {
             const order = await this.get(apiKey, receipt);
             if (order.data == undefined) return order;
 
-            if (time - receipt > TEN_MINUTES) return new Response(false, "Order was placed more than ten minutes ago.");
+            if (time - receipt > TEN_MINUTES) 
+                return new Response(false, "Order was placed more than ten minutes ago.");
 
             const orders = await this.getAll(apiKey);
             const newOrders = [];
-            for (let item of orders.data.orders) {
+            for (const item of orders.data.orders) {
                 if (item.receipt != receipt) newOrders.push(item);
             }
 
             const result = await dynamoDoc.update(Order.cancelSchema(apiKey, newOrders)).promise();
-            if (result.Attributes == undefined) return new Response(false, "An unknown error has occured.");
+            if (result.Attributes == undefined) 
+                return new Response(false, "An unknown error has occured.");
             return new Response(true, "Order has been cancelled successfully.", order.data);
         } catch (err) {
             return new Response(false, err);

@@ -9,9 +9,9 @@ class Response implements IResponse {
     message?: string;
     data?: any;
 
-    constructor(success: boolean, ...details: (string | object)[]) {
+    constructor(success: boolean, ...details: (string | unknown)[]) {
         this.success = success;
-        for (let item of details) {
+        for (const item of details) {
             if (typeof item === 'string') this.message = item;
             else this.data = item;
         }

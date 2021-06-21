@@ -24,7 +24,8 @@ export async function createItem(req: Request, res: Response) {
             error: paramMissingError
         });
     }
-    if (!await checkAdmin(req.body.apiKey)) return res.status(BAD_REQUEST).json({error: "Requesting user must be an admin"});
+    if (!await checkAdmin(req.body.apiKey)) 
+        return res.status(BAD_REQUEST).json({error: "Requesting user must be an admin"});
     const item = Item.createFromObject(req.body.item);
     const response = await itemDao.create(item);
     return res.status(CREATED).json(response);
@@ -82,7 +83,8 @@ export async function updateItem(req: Request, res: Response) {
             error: paramMissingError
         });
     }
-    if (!await checkAdmin(req.body.apiKey)) return res.status(BAD_REQUEST).json({error: "Requesting user must be an admin"});
+    if (!await checkAdmin(req.body.apiKey)) 
+        return res.status(BAD_REQUEST).json({error: "Requesting user must be an admin"});
     const item = Item.createFromObject(req.body.item);
     const response = await itemDao.update(req.body.id, item);
     res.status(OK).json(response);
@@ -102,7 +104,8 @@ export async function removeItem(req: Request, res: Response) {
             error: paramMissingError
         });
     }
-    if (!await checkAdmin(req.body.apiKey)) return res.status(BAD_REQUEST).json({error: "Requesting user must be an admin"});
+    if (!await checkAdmin(req.body.apiKey)) 
+        return res.status(BAD_REQUEST).json({error: "Requesting user must be an admin"});
     const response = await itemDao.remove(req.body.id);
     res.status(OK).json(response);
 }

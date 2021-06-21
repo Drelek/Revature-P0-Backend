@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 import { PutItemInput, UpdateItemInput, DeleteItemInput, GetItemInput } from 'aws-sdk/clients/dynamodb';
 
 export interface IUser {
@@ -16,6 +17,7 @@ class User implements IUser {
     public email: string;
     public admin?: boolean; 
 
+    // eslint-disable-next-line max-len
     constructor(firstName: string, lastName: string, email: string, apiKey?: string, admin?: boolean) {
         this.firstName = firstName;
         this.lastName = lastName;

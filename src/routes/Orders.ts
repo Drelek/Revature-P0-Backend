@@ -26,7 +26,7 @@ export async function placeOrder(req: Request, res: Response) {
     }
     const order = Order.createFromObject(req.body.order);
     const response = await orderDao.place(req.body.apiKey, order);
-    return res.status(OK).json(response);
+    return res.status(CREATED).json(response);
 }
 
 

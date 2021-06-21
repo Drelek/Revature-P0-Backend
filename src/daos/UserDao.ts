@@ -46,7 +46,6 @@ class UserDao implements IUserDao {
                     newUser
                 );
             } else {
-                console.log(result);
                 return new Response(
                     false,
                     "An unknown error has occurred."
@@ -135,7 +134,6 @@ class UserDao implements IUserDao {
                 );
             }
         } catch (err) {
-            console.log(err);
             return new Response(
                 false,
                 err

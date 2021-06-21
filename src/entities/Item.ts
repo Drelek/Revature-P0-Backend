@@ -1,3 +1,4 @@
+// eslint-disable-next-line max-len
 import { PutItemInput, UpdateItemInput, DeleteItemInput, GetItemInput, ScanInput } from 'aws-sdk/clients/dynamodb';
 
 export interface IItem {
@@ -20,7 +21,7 @@ class Item implements IItem {
         this.description = description;
         this.price = price;
         this.tags = [];
-        for (let thing of idAndTags) {
+        for (const thing of idAndTags) {
             if (typeof thing == 'number') this.id = thing;
             else this.tags.push(thing);
         }
