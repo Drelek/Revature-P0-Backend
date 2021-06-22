@@ -27,13 +27,13 @@ class ItemDao implements IItemDao {
         dynamo.scan(Item.getAllSchema(), (err, data) => {
             const items = data.Items || []
             for (const item of items) {
-                this.cachedItems.push(new Item(
+                this.cachedItems[Number(item.id.N)] = new Item(
                     item.name.S || '',
                     item.description.S || '',
                     Number(item.price.N) || 0,
                     Number(item.id.N),
                     ...item.tags.SS || []
-                ));
+                );
             }
         });
     }
@@ -58,7 +58,7 @@ class ItemDao implements IItemDao {
                     Number(result.Item.id.N),
                     ...result.Item.tags.SS || []
                 );
-                this.cachedItems.push(newItem);
+                this.cachedItems[newId] = newItem;
                 return new Response(
                     true,
                     newItem
@@ -125,17 +125,19 @@ class ItemDao implements IItemDao {
             const items = result.Items || [];
             this.cachedItems = [];
             for (const item of items) {
-                this.cachedItems.push(new Item(
+                this.cachedItems[Number(item.id.N)] = new Item(
                     item.name.S || '',
                     item.description.S || '',
                     Number(item.price.N),
                     Number(item.id.N),
                     ...item.tags.SS || []
-                ));
+                );
             }
             return new Response(
                 true,
-                {Items: this.cachedItems}
+                {Items: this.cachedItems.filter(value => {
+                    return value != null && value != undefined
+                })}
             );
         } catch (err) {
             return new Response(
