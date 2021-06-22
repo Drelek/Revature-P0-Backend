@@ -1,3 +1,5 @@
+// All data returned by the API should be in the form of a response.
+
 export interface IResponse {
     success: boolean;
     message?: string;

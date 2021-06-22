@@ -26,6 +26,13 @@ class User implements IUser {
         if (admin) this.admin = admin;
     }
 
+    
+    /**
+     * Creates the DynamoDB parameters for a put operation.
+     * 
+     * @param apiKey 
+     * @returns 
+     */
     public createSchema(apiKey: string): PutItemInput {
         return {
             Item: {
@@ -52,6 +59,13 @@ class User implements IUser {
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters for an update operation.
+     * 
+     * @param apiKey 
+     * @returns 
+     */
     public updateSchema(apiKey: string): UpdateItemInput {
         return {
             ExpressionAttributeNames: {
@@ -74,6 +88,13 @@ class User implements IUser {
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters for a get operation.
+     * 
+     * @param apiKey 
+     * @returns 
+     */
     public static getSchema(apiKey: string): GetItemInput {
         return {
             TableName: "Users",
@@ -85,6 +106,13 @@ class User implements IUser {
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters for a delete operation.
+     * 
+     * @param apiKey 
+     * @returns 
+     */
     public static removeSchema(apiKey: string): DeleteItemInput {
         return {
             TableName: "Users",
@@ -97,6 +125,13 @@ class User implements IUser {
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters for an update operation.
+     * 
+     * @param apiKey 
+     * @returns 
+     */
     public static promoteSchema(apiKey: string): UpdateItemInput {
         return {
             ExpressionAttributeNames: {
@@ -115,6 +150,13 @@ class User implements IUser {
         }
     }
 
+
+    /**
+     * Creates a User object from an untyped object.
+     * 
+     * @param obj 
+     * @returns 
+     */
     public static createFromObject(obj: any): User {
         return new User(obj.firstName, obj.lastName, obj.email);
     }

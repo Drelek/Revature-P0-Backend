@@ -27,6 +27,13 @@ class Item implements IItem {
         }
     }
 
+    
+    /**
+     * Creates the DynamoDB parameters for a put operation.
+     * 
+     * @param id 
+     * @returns 
+     */
     public createSchema(id: number): PutItemInput {
         return {
             Item: {
@@ -50,6 +57,13 @@ class Item implements IItem {
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters for an update operation.
+     * 
+     * @param id 
+     * @returns 
+     */
     public updateSchema(id: number): UpdateItemInput {
         return {
             ExpressionAttributeNames: {
@@ -74,6 +88,13 @@ class Item implements IItem {
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters for a get operation.
+     * 
+     * @param id 
+     * @returns 
+     */
     public static getSchema(id: number): GetItemInput {
         return {
             TableName: "Items",
@@ -85,12 +106,25 @@ class Item implements IItem {
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters for a scan operation.
+     * 
+     * @returns 
+     */
     public static getAllSchema(): ScanInput {
         return {
             TableName: "Items"
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters for a specific scam operation.
+     * 
+     * @param tag 
+     * @returns 
+     */
     public static getTaggedSchema(tag: string): ScanInput {
         return {
             TableName: "Items",
@@ -106,6 +140,13 @@ class Item implements IItem {
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters for a delete operation.
+     * 
+     * @param id 
+     * @returns 
+     */
     public static removeSchema(id: number): DeleteItemInput {
         return {
             TableName: "Items",
@@ -118,6 +159,13 @@ class Item implements IItem {
         }
     }
 
+
+    /**
+     * Creates an Item object from an object of any type.
+     * 
+     * @param obj 
+     * @returns 
+     */
     public static createFromObject(obj: any): Item {
         return new Item(obj.name, obj.description, obj.price, obj.id, ...obj.tags);
     }

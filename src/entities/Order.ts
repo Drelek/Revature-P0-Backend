@@ -24,12 +24,26 @@ class Order implements IOrder {
         if (timestamp != undefined) this.timestamp = timestamp;
     }
 
+    
+    /**
+     * Transforms the items array into an array of strings
+     *  for DynamoDB compatibility.
+     * 
+     * @returns 
+     */
     public getItemsString(): string[] {
         const newItems: string[] = [];
         for (const item of this.items) newItems.push(String(item));
         return newItems;
     }
 
+
+    /**
+     * Creates the DynamoDB parameters necessary for placing an order.
+     * 
+     * @param apiKey 
+     * @returns 
+     */
     public placeSchema(apiKey: string): UpdateItemInput {
         return {
             ExpressionAttributeNames: {
@@ -57,6 +71,13 @@ class Order implements IOrder {
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters for a get operation.
+     * 
+     * @param apiKey 
+     * @returns 
+     */
     public static getSchema(apiKey: string) {
         return {
             TableName: "Users",
@@ -67,6 +88,14 @@ class Order implements IOrder {
         }
     }
 
+
+    /**
+     * Creates the DynamoDB parameters necessary for cancelling an order.
+     * 
+     * @param apiKey 
+     * @param orders 
+     * @returns 
+     */
     public static cancelSchema(apiKey: string, orders: any[]) {
         return {
             ExpressionAttributeNames: {
@@ -84,6 +113,13 @@ class Order implements IOrder {
         }
     }
 
+
+    /**
+     * Creates a new order object from an untyped object.
+     * 
+     * @param obj 
+     * @returns 
+     */
     public static createFromObject(obj: any): Order {
         return new Order(
             obj.items,
