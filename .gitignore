@@ -102,3 +102,7 @@ dist
 
 # TernJS port file
 .tern-port
+
+# My files
+talking-points.txt
+talking-points.txt~
