@@ -6,11 +6,11 @@ import UserDao from '@daos/UserDao';
 import ItemDao from '@daos/ItemDao';
 import * as AWS from 'aws-sdk';
 
-AWS.config.credentials = {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
-}
-AWS.config.region = process.env.AWS_REGION;
+//AWS.config.credentials = {
+//    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+//    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
+//}
+AWS.config.region = 'us-east-2';
 const dynamo = new AWS.DynamoDB();
 const dynamoDoc = new AWS.DynamoDB.DocumentClient();
 

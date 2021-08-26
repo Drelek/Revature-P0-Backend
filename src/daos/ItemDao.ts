@@ -2,11 +2,11 @@ import Item from '@entities/Item';
 import Response from '@entities/Response';
 import * as AWS from 'aws-sdk';
 
-AWS.config.credentials = {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
-}
-AWS.config.region = process.env.AWS_REGION;
+//AWS.config.credentials = {
+//    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+//    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
+//}
+AWS.config.region = 'us-east-2';
 const dynamo = new AWS.DynamoDB();
 
 export interface IItemDao {
@@ -25,7 +25,7 @@ class ItemDao implements IItemDao {
     constructor() {
         this.cachedItems = [];
         dynamo.scan(Item.getAllSchema(), (err, data) => {
-            const items = data.Items || []
+          const items = data.Items || []
             for (const item of items) {
                 this.cachedItems[Number(item.id.N)] = new Item(
                     item.name.S || '',

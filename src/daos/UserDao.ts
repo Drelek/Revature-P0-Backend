@@ -3,11 +3,11 @@ import Response from '@entities/Response';
 import { v4 as uuid } from 'uuid';
 import * as AWS from 'aws-sdk';
 
-AWS.config.credentials = {
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
-}
-AWS.config.region = process.env.AWS_REGION;
+//AWS.config.credentials = {
+//    accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+//    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || ''
+//}
+AWS.config.region = 'us-east-2';
 const dynamo = new AWS.DynamoDB();
 
 export interface IUserDao {
